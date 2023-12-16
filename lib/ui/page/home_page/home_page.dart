@@ -1,14 +1,13 @@
+import 'package:blog/res/colors.dart';
 import 'package:blog/res/shadow_style.dart';
+import 'package:blog/res/strings.dart';
 import 'package:blog/ui/dialog/dialog_share_article.dart';
 import 'package:blog/ui/page/complex_module/complex_page/complex_page.dart';
+import 'package:blog/ui/page/home_page/widget/home_tab_title.dart';
 import 'package:blog/ui/page/my_page/my_controller.dart';
 import 'package:blog/ui/page/my_page/my_page.dart';
 import 'package:blog/ui/page/project_page/project_page.dart';
 import 'package:flutter/material.dart';
-import 'package:blog/res/colors.dart';
-import 'package:blog/res/strings.dart';
-import 'package:blog/ui/page/home_page/widget/home_tab_title.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
@@ -25,7 +24,6 @@ class HomePage extends StatefulWidget {
 
 class HomeTabOptionsState extends State<HomePage>
     with SingleTickerProviderStateMixin, WidgetsBindingObserver {
-
   ///控制器
   TabController? tabController;
 
@@ -35,14 +33,14 @@ class HomeTabOptionsState extends State<HomePage>
     super.didChangeAppLifecycleState(state);
     if (state == AppLifecycleState.resumed) {
       var clipboardData = Clipboard.getData(Clipboard.kTextPlain);
-      clipboardData.then((value){
+      clipboardData.then((value) {
         debugPrint("clipboardData=> ${value?.text}");
-        if(value != null
-            && value.text != null
-            && value.text!.isNotEmpty
-            && (value.text!.startsWith("https://")
-            || value.text!.startsWith("http://"))) {
-          Get.dialog(ShareArticleDialog(url :  value.text!));
+        if (value != null &&
+            value.text != null &&
+            value.text!.isNotEmpty &&
+            (value.text!.startsWith("https://") ||
+                value.text!.startsWith("http://"))) {
+          Get.dialog(ShareArticleDialog(url: value.text!));
         }
       });
     }
@@ -51,7 +49,7 @@ class HomeTabOptionsState extends State<HomePage>
   @override
   void initState() {
     tabController = TabController(length: 3, vsync: this);
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
 
     ///监听TabBar切换事件
     tabController?.addListener(() {
@@ -73,7 +71,7 @@ class HomeTabOptionsState extends State<HomePage>
   void dispose() {
     super.dispose();
     tabController?.dispose();
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   @override
